@@ -22,7 +22,7 @@ export function Section({ id, children, className }: Props) {
       className={cn(
         'relative flex scroll-mt-14 flex-col justify-center px-5 pb-10 pt-12 sm:px-10',
         i === 0 && 'pt-24',
-        'snap:min-h-dvh snap:scroll-mt-0 snap:snap-start snap:snap-always snap:pb-20 snap:pt-24',
+        'snap:min-h-dvh snap:scroll-mt-0 snap:snap-start snap:snap-always snap:pb-18 snap:pt-20',
         className,
       )}
     >

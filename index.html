@@ -4,12 +4,57 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fabricio Dias da Rosa · Software Engineer</title>
-    <meta name="description" content="Portfolio of Fabricio Dias da Rosa, a full stack software engineer from São Leopoldo, Brazil. Vue 3, TypeScript, C# and .NET." />
+    <meta name="description" content="Fabricio Dias da Rosa, full stack software engineer from São Leopoldo, Brazil. Interfaces in Vue, React and TypeScript, back ends in C# / .NET. Open to remote roles." />
+    <meta name="author" content="Fabricio Dias da Rosa" />
     <meta name="theme-color" content="#0a0a0a" />
+    <link rel="canonical" href="https://fabriciodr01.github.io/portifolio/" />
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0a'/%3E%3Cpath d='M16 4l12 12-12 12L4 16z' fill='none' stroke='%23ff7100' stroke-width='3'/%3E%3C/svg%3E" />
+    <!-- The portrait is the largest element above the fold; start fetching it before the JS runs. -->
+    <link rel="preload" as="image" href="%BASE_URL%images/profile.webp" fetchpriority="high" />
+
+    <!-- Link previews (LinkedIn, WhatsApp, Slack, X). Absolute URLs are required by the crawlers. -->
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content="Fabricio Dias da Rosa" />
+    <meta property="og:url" content="https://fabriciodr01.github.io/portifolio/" />
+    <meta property="og:title" content="Fabricio Dias da Rosa · Software Engineer" />
+    <meta property="og:description" content="Full stack software engineer: Vue, React and TypeScript interfaces on C# / .NET back ends. Open to remote roles." />
+    <meta property="og:image" content="https://fabriciodr01.github.io/portifolio/og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Fabricio Dias da Rosa, Software Engineer · Full Stack, on an orange HUD background" />
+    <meta property="profile:first_name" content="Fabricio" />
+    <meta property="profile:last_name" content="Dias da Rosa" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Fabricio Dias da Rosa · Software Engineer" />
+    <meta name="twitter:description" content="Full stack software engineer: Vue, React and TypeScript interfaces on C# / .NET back ends." />
+    <meta name="twitter:image" content="https://fabriciodr01.github.io/portifolio/og.jpg" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Fabricio Dias da Rosa",
+        "jobTitle": "Software Engineer",
+        "url": "https://fabriciodr01.github.io/portifolio/",
+        "image": "https://fabriciodr01.github.io/portifolio/images/profile.webp",
+        "address": { "@type": "PostalAddress", "addressLocality": "São Leopoldo", "addressRegion": "RS", "addressCountry": "BR" },
+        "sameAs": ["https://github.com/Fabriciodr01", "https://www.linkedin.com/in/fabriciodr01"],
+        "knowsAbout": ["Vue.js", "React", "TypeScript", "C#", ".NET", "ASP.NET Core", "PostgreSQL", "Docker", "Unity"]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <main style="font-family: monospace; color: #e8c9a8; background: #0a0a0a; padding: 2rem; max-width: 40rem">
+        <h1>Fabricio Dias da Rosa</h1>
+        <p>Software Engineer · Full Stack · São Leopoldo, Brazil · Open to remote.</p>
+        <p>This portfolio needs JavaScript. You can also find me on
+          <a href="https://github.com/Fabriciodr01" style="color: #ff7100">GitHub</a> and
+          <a href="https://www.linkedin.com/in/fabriciodr01" style="color: #ff7100">LinkedIn</a>.
+        </p>
+      </main>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

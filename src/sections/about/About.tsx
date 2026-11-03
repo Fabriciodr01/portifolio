@@ -9,7 +9,7 @@ import { Dossier } from './Dossier'
 export function About() {
   return (
     <Section id="about">
-      <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.4fr)]">
+      <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.5fr)]">
         <div>
           <Reveal delay={0.1}><h2 className="type-title">About</h2></Reveal>
           <Reveal delay={0.3} className="mt-4">

@@ -7,6 +7,12 @@ import { HudButton } from '@/components/ui/HudButton'
 import { PhotoPanel } from '@/components/ui/PhotoPanel'
 import { SITE } from '@/data/site'
 
+const CONTACT = [
+  { label: 'GitHub ↗', href: SITE.github, external: true },
+  { label: 'LinkedIn ↗', href: SITE.linkedin, external: true },
+  { label: 'Email', href: `mailto:${SITE.email}`, external: false },
+]
+
 export function Intro() {
   const { done } = useBoot()
   return (
@@ -39,6 +45,22 @@ export function Intro() {
             <HudButton href="#about">ABOUT</HudButton>
             <HudButton href="#experience">EXPERIENCE</HudButton>
             <HudButton href="#projects">PROJECTS</HudButton>
+          </Reveal>
+          {/* The status bar hides its external links on phones, so contact lives here where everyone sees it. */}
+          <Reveal delay={0.4} className="mt-6">
+            <p className="flex flex-wrap items-center gap-x-5 gap-y-2">
+              <span className="type-label">Contact //</span>
+              {CONTACT.map((c) => (
+                <a
+                  key={c.label}
+                  href={c.href}
+                  {...(c.external ? { target: '_blank', rel: 'noreferrer' } : {})}
+                  className="type-sub underline decoration-dim underline-offset-4 transition-colors hover:text-amber hover:decoration-amber"
+                >
+                  {c.label}
+                </a>
+              ))}
+            </p>
           </Reveal>
         </div>
         {/* Height-capped so the portrait never pushes the section past one desktop screen. */}
