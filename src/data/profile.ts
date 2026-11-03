@@ -1,5 +1,3 @@
-/** Content for the About section (Phase 2 builds the dossier UI and tabs on top of this). Source: resume. */
-
 export const SUMMARY = [
   'Software engineer building web and cross-platform mobile apps, front to back.',
   'On the front end I work with Vue 3, React, TypeScript and Quasar; on the back end with C# / .NET Core, Node.js and NestJS.',
@@ -8,7 +6,6 @@ export const SUMMARY = [
 
 export type StackTab = { id: 'frontend' | 'backend' | 'games'; label: string; items: string[] }
 
-/** Tab labels are drawn as -=< FRONTEND >=-, -=( BACKEND )=-, -=[ GAMES ]=- in Phase 2. */
 export const STACK: StackTab[] = [
   {
     id: 'frontend',
@@ -23,8 +20,7 @@ export const STACK: StackTab[] = [
   {
     id: 'games',
     label: 'GAMES',
-    // TODO: engines and tools (Unity? Godot?) — the resume only lists the degree and the teaching role.
-    items: ['B.Tech in Digital Games (UNIASSELVI, 2026)', 'Taught 2D/3D game development to 40+ students', 'FrontLine: mobile multiplayer tactical shooter'],
+    items: ['Unity', 'C#', 'GameMaker Studio 2', 'GML', 'Blender', '2D / 3D'],
   },
 ]
 
@@ -34,7 +30,7 @@ export const EXPERIENCE: Job[] = [
   {
     role: 'Software Engineer',
     company: 'Minha Visita',
-    period: 'Nov 2024 – Present',
+    period: 'Nov 2024 – Jul 2026',
     place: 'Novo Hamburgo, RS · Hybrid',
     points: [
       'Core features and responsive interfaces with Vue 3, TypeScript, Quasar and Capacitor (web + hybrid mobile).',

@@ -3,7 +3,6 @@ import { Reveal } from '@/components/motion/Reveal'
 import { Panel } from '@/components/ui/Panel'
 import { SUMMARY } from '@/data/profile'
 
-/** PHASE 2 placeholder: the typed dossier, stack tabs and experience (all in data/profile.ts) go here. */
 export function About() {
   return (
     <Section id="about">

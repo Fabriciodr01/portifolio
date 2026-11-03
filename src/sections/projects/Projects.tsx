@@ -3,7 +3,6 @@ import { Reveal } from '@/components/motion/Reveal'
 import { Panel } from '@/components/ui/Panel'
 import { PROJECTS } from '@/data/projects'
 
-/** PHASE 3 placeholder: project cards (filters, tilt, expandable details) go here. */
 export function Projects() {
   return (
     <Section id="projects">

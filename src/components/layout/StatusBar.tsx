@@ -10,7 +10,7 @@ export function StatusBar({ active }: { active: string }) {
     <header className="fixed inset-x-0 top-0 z-50 bg-gradient-to-b from-void via-void/90 to-transparent">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-5 text-xs uppercase tracking-hud sm:px-10">
         <a href="#intro" className="flex items-center gap-3 text-ed">
-          <span className="size-1.5 animate-pulse rounded-full bg-ed shadow-[0_0_8px] shadow-ed" />
+          <span className="size-1.5 rounded-full motion-safe:animate-pulse bg-ed shadow-[0_0_8px] shadow-ed" />
           <span>
             <span className="hidden sm:inline">{SITE.handle} // </span>ONLINE
           </span>
