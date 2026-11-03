@@ -1,65 +1,54 @@
+/** Dossier paragraphs for the About section, typed out when they scroll into view. */
 export const SUMMARY = [
-  'Software engineer building web and cross-platform mobile apps, front to back.',
-  'On the front end I work with Vue 3, React, TypeScript and Quasar; on the back end with C# / .NET Core, Node.js and NestJS.',
-  'I care about performance (code splitting, payload reduction, caching), automated tests (Cypress, Jest, xUnit), Docker and CI/CD, clean architecture and SOLID.',
+  'I build web and cross-platform mobile apps end to end: the interface people use, the APIs behind it and the pipeline that ships it. The tools change from project to project; the projects below can be filtered by any of them.',
+  'At Minha Visita I moved from support to the core engineering team in two months, then built an Outlook-style recurrence engine in three languages and helped modernize how the front end talks to the API.',
+  'I care about software that stays fast and stable: lean bundles, caching, automated tests in CI and clean architecture. Before that, I taught programming and game development to 40+ students.',
 ]
 
-export type StackTab = { id: 'frontend' | 'backend' | 'games'; label: string; items: string[] }
-
-export const STACK: StackTab[] = [
-  {
-    id: 'frontend',
-    label: 'FRONTEND',
-    items: ['Vue 3 (Composition API)', 'React', 'TypeScript', 'JavaScript (ES6+)', 'Quasar', 'Capacitor', 'Pinia / Vuex', 'HTML5', 'CSS3 / Sass', 'Cypress', 'Jest'],
-  },
-  {
-    id: 'backend',
-    label: 'BACKEND',
-    items: ['C#', '.NET Core / ASP.NET', 'Entity Framework Core', 'Node.js', 'NestJS', 'REST', 'GraphQL', 'JWT', 'PostgreSQL', 'SQL Server', 'Firebase', 'Docker', 'GitHub Actions', 'xUnit'],
-  },
-  {
-    id: 'games',
-    label: 'GAMES',
-    items: ['Unity', 'C#', 'GameMaker Studio 2', 'GML', 'Blender', '2D / 3D'],
-  },
-]
-
-export type Job = { role: string; company: string; period: string; place: string; points: string[] }
+export type Job = { id: string; role: string; company: string; period: string; place: string; points: string[] }
 
 export const EXPERIENCE: Job[] = [
   {
+    id: 'minha-visita-engineer',
     role: 'Software Engineer',
     company: 'Minha Visita',
     period: 'Nov 2024 – Jul 2026',
     place: 'Novo Hamburgo, RS · Hybrid',
     points: [
-      'Core features and responsive interfaces with Vue 3, TypeScript, Quasar and Capacitor (web + hybrid mobile).',
-      'REST and GraphQL integration during a major front-end modernization.',
-      'Outlook-style recurrence scheduling engine with custom rules and i18n in 3 languages.',
-      'E2E tests with Cypress and unit tests with Jest, wired into CI/CD.',
-      'Performance work: async code splitting, smaller payloads, caching, render tuning.',
+      'Built core features and responsive interfaces with Vue 3, TypeScript, Quasar and Capacitor, shipped to web and hybrid mobile.',
+      'Designed an Outlook-style recurrence scheduling engine: custom repeat rules, edge cases and i18n in 3 languages.',
+      'Integrated REST and GraphQL APIs during a major front-end modernization.',
+      'Wrote Cypress E2E and Jest unit suites wired into CI/CD to stop regressions before release.',
+      'Cut load times with async code splitting, smaller payloads, browser caching and render tuning.',
     ],
   },
   {
+    id: 'minha-visita-support',
     role: 'Technical Support & Systems Analyst',
     company: 'Minha Visita',
     period: 'Sep 2024 – Nov 2024',
     place: 'Novo Hamburgo, RS',
     points: [
-      'Root-cause analysis of production bugs with SQL and telemetry.',
+      'Traced production bugs to their root cause with SQL and application telemetry, cutting time to resolution.',
+      'Triaged and patched critical issues alongside senior developers.',
       'Promoted to the core engineering team within two months.',
     ],
   },
   {
-    role: 'Computer Science & Game Development Instructor',
+    id: 'happy-instructor',
+    role: 'CS & Game Development Instructor',
     company: 'Happy',
     period: 'Feb 2023 – Aug 2024',
     place: 'Porto Alegre, RS',
-    points: ['Taught programming fundamentals, OOP and 2D/3D game development to 40+ students.'],
+    points: [
+      'Taught programming fundamentals, logic and object-oriented design to 40+ students.',
+      'Guided hands-on 2D and 3D game projects from first idea to finished build.',
+      'Adapted complex technical concepts to each student\'s level.',
+    ],
   },
 ]
 
 export const EDUCATION = [
-  { title: 'B.Tech in Digital Games / Applied Software Engineering', school: 'UNIASSELVI', period: 'Expected Jul 2026' },
+  { title: 'B.Tech in Digital Games / Applied Software Engineering', school: 'UNIASSELVI', period: 'Expected Feb 2027' },
   { title: 'Ultimate C# Masterclass (ASP.NET Core, EF Core, Clean Architecture)', school: 'Udemy', period: 'Completed' },
 ]

@@ -1,16 +1,11 @@
-import { Fragment, lazy, Suspense } from 'react'
+import { Fragment } from 'react'
 import { Section } from '@/components/layout/Section'
 import { useBoot } from '@/components/boot/Boot'
 import { Reveal } from '@/components/motion/Reveal'
 import { ScrambleText } from '@/components/motion/ScrambleText'
-import { ShipSpecs } from '@/components/ship/ShipSpecs'
 import { HudButton } from '@/components/ui/HudButton'
-import { Panel } from '@/components/ui/Panel'
-import { SHIP } from '@/data/ship'
+import { PhotoPanel } from '@/components/ui/PhotoPanel'
 import { SITE } from '@/data/site'
-
-// three.js is most of the bundle weight; splitting it out keeps the first paint fast.
-const ShipScan = lazy(() => import('@/components/ship/ShipScan'))
 
 export function Intro() {
   const { done } = useBoot()
@@ -45,25 +40,9 @@ export function Intro() {
             <HudButton href="#projects">PROJECTS</HudButton>
           </Reveal>
         </div>
-        <Reveal delay={0.2}>
-          <Panel label="SYS_01 // SHIP SCAN" meta={SHIP.name}>
-            <div className="relative aspect-[16/9] max-h-[25dvh] w-full">
-              <Suspense fallback={<p className="type-caption grid h-full place-items-center">Scanning…</p>}>
-                <ShipScan />
-              </Suspense>
-            </div>
-            <div className="mt-4 border-t border-ed/30 pt-4">
-              <ShipSpecs specs={SHIP.specs} delay={0.6} />
-              <a
-                href={SHIP.credit.url}
-                target="_blank"
-                rel="noreferrer"
-                className="type-caption mt-3 inline-block underline decoration-dim underline-offset-4 transition-colors hover:text-ed"
-              >
-                {SHIP.credit.label} ↗
-              </a>
-            </div>
-          </Panel>
+        {/* Height-capped so the portrait never pushes the section past one desktop screen. */}
+        <Reveal delay={0.2} className="mx-auto w-full max-w-xs lg:max-w-[calc(56dvh*0.8)]">
+          <PhotoPanel src={`${import.meta.env.BASE_URL}images/profile.jpg`} alt={`Portrait of ${SITE.name}`} label="ID_01 // PERSONNEL" meta="VERIFIED" />
         </Reveal>
       </div>
     </Section>

@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
-/* Desktop with a mouse/trackpad and a tall-enough window. Single source of truth for everything
+/* Desktop with a mouse/trackpad and a window tall enough for every section to fit (720px). Single source of truth for everything
    that only happens there: scroll snap, full-screen sections, pinned dividers. Use as `snap:...`. */
-@custom-variant snap (@media (min-width: 1024px) and (min-height: 640px) and (hover: hover) and (pointer: fine));
+@custom-variant snap (@media (min-width: 1024px) and (min-height: 720px) and (hover: hover) and (pointer: fine));
 
 /* ── Design tokens ─────────────────────────────────────────────
    Change the look of the whole site here. Utilities are generated
@@ -39,7 +39,7 @@
 @utility type-title {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(3rem, 8vw, 6rem);
+  font-size: clamp(3rem, min(8vw, 12vh), 6rem);
   line-height: 1;
   text-transform: uppercase;
   color: var(--color-bone);

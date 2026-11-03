@@ -5,6 +5,7 @@ import { StatusBar } from '@/components/layout/StatusBar'
 import { SECTION_IDS } from '@/data/site'
 import { useActiveSection } from '@/hooks/useActiveSection'
 import { About } from '@/sections/about/About'
+import { Experience } from '@/sections/experience/Experience'
 import { Intro } from '@/sections/intro/Intro'
 import { Projects } from '@/sections/projects/Projects'
 
@@ -20,6 +21,7 @@ export default function App() {
         <main>
           <Intro />
           <About />
+          <Experience />
           <Projects />
         </main>
       </BootProvider>

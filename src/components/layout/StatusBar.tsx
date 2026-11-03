@@ -9,16 +9,16 @@ export function StatusBar({ active }: { active: string }) {
   return (
     <header className="fixed inset-x-0 top-0 z-50 bg-gradient-to-b from-void via-void/90 to-transparent">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-5 type-nav sm:px-10">
-        <a href="#intro" className="type-nav flex items-center gap-3 text-ed">
+        {/* Phones show only the status dot so all five section links fit on one line. */}
+        <a href="#intro" aria-label="Back to top" className="type-nav flex shrink-0 items-center gap-3 text-ed">
           <span className="size-1.5 rounded-full motion-safe:animate-pulse bg-ed shadow-[0_0_8px] shadow-ed" />
-          <span>
-            <span className="hidden sm:inline">{SITE.handle} // </span>ONLINE
-          </span>
+          <span aria-hidden className="hidden sm:inline">{SITE.handle} // ONLINE</span>
         </a>
         <nav aria-label="Primary">
-          <ul className="flex items-center gap-4 sm:gap-7">
-            {SECTIONS.map((s) => (
-              <li key={s.id}>
+          <ul className="flex items-center gap-3.5 sm:gap-7">
+            {SECTIONS.map((s, i) => (
+              // On phones the brand link already returns to the top, so the first item gives its room to the others.
+              <li key={s.id} className={cn(i === 0 && 'hidden sm:block')}>
                 <a
                   href={`#${s.id}`}
                   aria-current={active === s.id ? 'true' : undefined}

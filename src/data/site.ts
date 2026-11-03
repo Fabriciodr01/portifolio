@@ -16,6 +16,7 @@ export const SITE = {
 export const SECTIONS = [
   { id: 'intro', label: 'INTRO', title: 'PORTFOLIO' },
   { id: 'about', label: 'ABOUT', title: 'PROFILE' },
+  { id: 'experience', label: 'EXPERIENCE', title: 'SERVICE RECORD' },
   { id: 'projects', label: 'PROJECTS', title: 'PROJECTS' },
 ] as const
 
