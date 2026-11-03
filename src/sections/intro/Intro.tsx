@@ -39,7 +39,7 @@ export function Intro() {
         </div>
         <Reveal delay={0.2}>
           <Panel label="SYS_01 // SHIP SCAN" meta={SHIP.name}>
-            <div className="relative aspect-[16/9] max-h-[30dvh] w-full">
+            <div className="relative aspect-[16/9] max-h-[27dvh] w-full">
               <Suspense fallback={<p className="grid h-full place-items-center text-xs uppercase tracking-hud text-dim">Scanning…</p>}>
                 <ShipScan />
               </Suspense>

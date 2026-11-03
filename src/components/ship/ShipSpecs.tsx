@@ -1,10 +1,13 @@
 import { useInView, useReducedMotion } from 'motion/react'
 import { useEffect, useRef, useState } from 'react'
 import { useBoot } from '@/components/boot/Boot'
+import { cn } from '@/lib/cn'
 
 type Props = { specs: ReadonlyArray<readonly [string, string]>; delay?: number }
 
 const CHARS_PER_SECOND = 90
+// Rows longer than this would collide with the neighbouring column on a narrow panel, so they span both.
+const WIDE_ROW = 20
 
 /**
  * Spec sheet that types itself out row by row, label first then value, with a block cursor at the write head.
@@ -39,14 +42,14 @@ export function ShipSpecs({ specs, delay = 0 }: Props) {
           <div key={k}><dt>{k}</dt><dd>{v}</dd></div>
         ))}
       </dl>
-      <div aria-hidden className="grid gap-x-6 gap-y-1 text-[11px] uppercase tracking-widest sm:grid-cols-2">
+      <div aria-hidden className="grid gap-x-6 gap-y-0.5 text-[11px] uppercase tracking-widest sm:grid-cols-2">
         {specs.map(([k, v]) => {
           const label = k.slice(0, Math.max(0, typed - offset))
           const value = v.slice(0, Math.max(0, typed - offset - k.length))
           const cursorHere = typed < total && typed >= offset && typed < offset + k.length + v.length
           offset += k.length + v.length
           return (
-            <div key={k} className="flex min-h-[1.65em] items-baseline gap-2">
+            <div key={k} className={cn('flex min-h-[1.65em] items-baseline gap-2', k.length + v.length > WIDE_ROW && 'sm:col-span-2')}>
               <span className="text-dim">{label}</span>
               {label.length === k.length && <span className="min-w-3 flex-1 border-b border-dotted border-dim/50" />}
               <span className="whitespace-nowrap text-amber">{value}</span>
