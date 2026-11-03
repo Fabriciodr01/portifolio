@@ -12,14 +12,14 @@ export function Intro() {
         <div>
           <Reveal><Eyebrow>Portfolio / 001</Eyebrow></Reveal>
           <Reveal delay={0.1}>
-            <h1 className="mt-6 font-display text-[clamp(4rem,13vw,9.5rem)] font-extrabold uppercase leading-[0.85] text-bone">
-              Fabricio<br /><span className="text-ed">Developer</span>
+            <h1 className="mt-6 font-display text-[clamp(4rem,13vh,9.5rem)] font-extrabold uppercase leading-[0.85] text-bone">
+              Fabricio<br /><span className="text-ed">Dias da Rosa</span>
             </h1>
           </Reveal>
           <Reveal delay={0.2}><p className="mt-6 text-lg text-amber">Full stack developer. Vue, TypeScript, C#.</p></Reveal>
           <Reveal delay={0.3} className="mt-8 flex flex-wrap gap-3">
-            <BracketButton href="#projects" variant="solid">PROJECTS</BracketButton>
             <BracketButton href="#about">ABOUT</BracketButton>
+            <BracketButton href="#projects">PROJECTS</BracketButton>
           </Reveal>
         </div>
         <Reveal delay={0.2}>
