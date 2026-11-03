@@ -1,8 +1,9 @@
 /** Dossier paragraphs for the About section, typed out when they scroll into view. */
 export const SUMMARY = [
-  'I build web and cross-platform mobile apps end to end: the interface people use, the APIs behind it and the pipeline that ships it. The tools change from project to project; the projects below can be filtered by any of them.',
-  'At Minha Visita I moved from support to the core engineering team in two months, then built an Outlook-style recurrence engine in three languages and helped modernize how the front end talks to the API.',
-  'I care about software that stays fast and stable: lean bundles, caching, automated tests in CI and clean architecture. Before that, I taught programming and game development to 40+ students.',
+  "I'm a full stack software engineer: Vue 3, React and TypeScript on the front end; C# / .NET, Node.js, NestJS and Docker on the back end. I care about interfaces that feel good to use and architecture that keeps them easy to change. Open to full stack, front-end or back-end roles, remote or with relocation.",
+  "At Minha Visita I was promoted from support to the core engineering team in two months. From there I shipped features to web and mobile with Vue, Quasar and Capacitor, built an Outlook-style recurrence scheduling engine localized in three languages, integrated REST and GraphQL APIs during a major front-end modernization, and cut load times with code splitting and caching, all covered by Cypress and Jest suites in CI.",
+  "Before engineering I taught programming and game development to 40+ students, where I learned to explain technical decisions clearly to people at any level.",
+  "Off the clock I build small games in Unity and GameMaker with my own Blender models, or I'm racing in Assetto Corsa Competizione and flying in Elite Dangerous. This site is where those worlds meet.",
 ]
 
 export type Job = { id: string; role: string; company: string; period: string; place: string; points: string[] }

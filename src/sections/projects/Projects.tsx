@@ -42,7 +42,7 @@ export function Projects() {
 
   return (
     <Section id="projects">
-      <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.6fr)]">
+      <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.6fr)] lg:items-end">
         <Reveal delay={0.1}><h2 className="type-title">Projects</h2></Reveal>
         <Reveal delay={0.2}>
           <TechFilter active={filter} onSelect={setFilter} />
