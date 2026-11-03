@@ -2,6 +2,7 @@ import { Section } from '@/components/layout/Section'
 import { Reveal } from '@/components/motion/Reveal'
 import { BracketButton } from '@/components/ui/BracketButton'
 import { Panel } from '@/components/ui/Panel'
+import { SITE } from '@/data/site'
 
 /** PHASE 1 placeholder: title, buttons and the framed panel that will hold the 3D ship. */
 export function Intro() {
@@ -15,7 +16,13 @@ export function Intro() {
               Fabricio<br /><span className="text-ed">Dias da Rosa</span>
             </h1>
           </Reveal>
-          <Reveal delay={0.2}><p className="mt-6 text-lg text-amber">Full stack developer. Vue, TypeScript, C#.</p></Reveal>
+          <Reveal delay={0.2}>
+            <p className="mt-6 text-lg uppercase tracking-wider text-amber">{SITE.role}</p>
+            <p className="mt-1 text-ink/80">{SITE.tagline}</p>
+            <p className="mt-4 text-xs uppercase tracking-hud text-dim">
+              <span className="whitespace-nowrap">LOC: {SITE.location}</span> <span className="text-ed">//</span> <span className="whitespace-nowrap">{SITE.availability}</span>
+            </p>
+          </Reveal>
           <Reveal delay={0.3} className="mt-8 flex flex-wrap gap-3">
             <BracketButton href="#about">ABOUT</BracketButton>
             <BracketButton href="#projects">PROJECTS</BracketButton>

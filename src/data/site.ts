@@ -1,6 +1,11 @@
 export const SITE = {
-  name: 'Fabricio',
+  name: 'Fabricio Dias da Rosa',
   handle: 'FABRICIO.DEV',
+  role: 'Software Engineer · Full Stack',
+  tagline: 'Vue 3 & TypeScript front ends, C# / .NET back ends.',
+  location: 'São Leopoldo, Brazil',
+  availability: 'Open to remote',
+  email: 'fabriciodr01@gmail.com',
   github: 'https://github.com/Fabriciodr01',
   linkedin: 'https://www.linkedin.com/in/fabriciodr01',
 } as const

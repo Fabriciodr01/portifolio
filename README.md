@@ -1,6 +1,6 @@
 # Fabricio Dias da Rosa · Portfolio
 
-Personal portfolio of a full stack developer (Vue, TypeScript, C#), with an Elite Dangerous inspired HUD look.
+Personal portfolio of a full stack software engineer (Vue 3, TypeScript, C# / .NET), with an Elite Dangerous inspired HUD look.
 
 **Live:** https://fabriciodr01.github.io/portifolio/
 
