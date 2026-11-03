@@ -1,4 +1,5 @@
 import { MotionConfig } from 'motion/react'
+import { BootProvider } from '@/components/boot/Boot'
 import { Backdrop } from '@/components/layout/Backdrop'
 import { StatusBar } from '@/components/layout/StatusBar'
 import { SECTION_IDS } from '@/data/site'
@@ -13,13 +14,15 @@ export default function App() {
     // reducedMotion="user" drops transform/layout animations (nav underline slide, tap scale) for every
     // Motion component when the OS asks for reduced motion; opacity fades still run.
     <MotionConfig reducedMotion="user">
-      <Backdrop />
-      <StatusBar active={active} />
-      <main>
-        <Intro />
-        <About />
-        <Projects />
-      </main>
+      <BootProvider>
+        <Backdrop />
+        <StatusBar active={active} />
+        <main>
+          <Intro />
+          <About />
+          <Projects />
+        </main>
+      </BootProvider>
     </MotionConfig>
   )
 }

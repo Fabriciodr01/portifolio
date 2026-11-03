@@ -9,4 +9,6 @@ export default defineConfig({
   base: process.env.VITE_BASE ?? '/',
   plugins: [react(), tailwindcss()],
   resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
+  // The only chunk over the default 500 kB is the lazily loaded three.js ship viewer, which is expected.
+  build: { chunkSizeWarningLimit: 1000 },
 })
