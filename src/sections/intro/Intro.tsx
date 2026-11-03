@@ -37,6 +37,7 @@ export function Intro() {
           </Reveal>
           <Reveal delay={0.3} className="mt-8 flex flex-wrap gap-3">
             <HudButton href="#about">ABOUT</HudButton>
+            <HudButton href="#experience">EXPERIENCE</HudButton>
             <HudButton href="#projects">PROJECTS</HudButton>
           </Reveal>
         </div>

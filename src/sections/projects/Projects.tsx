@@ -1,11 +1,12 @@
-import { AnimatePresence, motion } from 'motion/react'
-import { useMemo, useState } from 'react'
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Section } from '@/components/layout/Section'
 import { Reveal } from '@/components/motion/Reveal'
 import { Panel } from '@/components/ui/Panel'
 import { TechIcon } from '@/components/ui/TechIcon'
 import { PROJECTS } from '@/data/projects'
 import { TECH_BY_ID } from '@/data/tech'
+import { cn } from '@/lib/cn'
 import { TechFilter } from './TechFilter'
 
 // Public projects are numbered on their own; the work card is labelled separately.
@@ -15,6 +16,29 @@ export function Projects() {
   const [filter, setFilter] = useState<string | null>(null)
   const shown = useMemo(() => (filter ? PROJECTS.filter((p) => p.stack.includes(filter)) : PROJECTS), [filter])
   const active = filter ? TECH_BY_ID.get(filter) : undefined
+  const reduce = useReducedMotion()
+  const track = useRef<HTMLUListElement>(null)
+  const [edges, setEdges] = useState({ prev: false, next: false })
+
+  const measure = useCallback(() => {
+    const el = track.current
+    if (el) setEdges({ prev: el.scrollLeft > 4, next: el.scrollLeft + el.clientWidth < el.scrollWidth - 4 })
+  }, [])
+  useEffect(() => {
+    const el = track.current
+    if (!el) return
+    measure()
+    const ro = new ResizeObserver(measure)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [measure, shown])
+
+  // One card per press; the first child's width plus the gap is a card step.
+  const step = (dir: 1 | -1) => {
+    const el = track.current
+    const card = el?.firstElementChild as HTMLElement | null
+    if (el && card) el.scrollBy({ left: dir * (card.offsetWidth + 20), behavior: reduce ? 'auto' : 'smooth' })
+  }
 
   return (
     <Section id="projects">
@@ -34,14 +58,40 @@ export function Projects() {
             </button>
           </>
         )}
+        <div className="ml-auto flex gap-1.5">
+          {([[-1, '◀', 'Scroll projects left', edges.prev], [1, '▶', 'Scroll projects right', edges.next]] as const).map(([dir, glyph, label, enabled]) => (
+            <button
+              key={dir}
+              type="button"
+              aria-label={label}
+              disabled={!enabled}
+              onClick={() => step(dir)}
+              className="type-caption grid size-8 place-items-center border border-ed/40 text-ed transition-colors hover:border-amber hover:bg-glow hover:text-amber disabled:cursor-default disabled:border-dim/30 disabled:bg-transparent disabled:text-dim"
+            >
+              {glyph}
+            </button>
+          ))}
+        </div>
       </div>
 
-      <motion.ul layout className="mt-3 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {/* Cards are sized so the next one is always cut at the edge (about 3.4 visible on desktop), and the
+          edge fades while more remain: both tell the visitor the row scrolls sideways. `relative` makes it the
+          containing block, so absolutely positioned descendants (sr-only labels) are clipped instead of widening the page. */}
+      <motion.ul
+        ref={track}
+        layout
+        onScroll={measure}
+        className={cn(
+          'relative mt-3 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-3 [scrollbar-color:var(--color-ed)_transparent] [scrollbar-width:thin]',
+          edges.next && '[mask-image:linear-gradient(to_right,#000_85%,transparent)]',
+        )}
+      >
         <AnimatePresence mode="popLayout" initial={false}>
           {shown.map((p) => (
             <motion.li
               key={p.id}
               layout
+              className="w-[82%] shrink-0 snap-start sm:w-[calc((100%-1.25rem)/1.6)] lg:w-[calc((100%-3.75rem)/3.4)]"
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.96 }}

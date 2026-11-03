@@ -1,50 +1,106 @@
+import { AnimatePresence, motion } from 'motion/react'
+import { useState, type FocusEvent, type PointerEvent } from 'react'
 import { TechIcon } from '@/components/ui/TechIcon'
 import { TECH_GROUPS } from '@/data/tech'
 import { cn } from '@/lib/cn'
 
 type Props = { active: string | null; onSelect: (id: string | null) => void }
+type Hover = { group: string; x: number; top: number; width: number; name: string }
 
-/** Grouped icon toggles. Pressing one filters the project cards; pressing it again clears the filter. */
+// Vertical layout of a group, in px: label row, then the gap the leader line runs through, then the icon row.
+const LABEL_H = 20
+const GAP = 12
+const LINE_Y = LABEL_H + GAP / 2
+// The leader line turns up into the readout box this far from the group's right edge.
+const ELBOW = 14
+
+/**
+ * Grouped icon toggles. Pressing one filters the project cards; pressing it again clears the filter.
+ * Hover or focus draws a leader line from the icon, through the gap above the row, to a readout box at the right end
+ * of the group's label row, so the name never covers a neighbouring icon.
+ */
 export function TechFilter({ active, onSelect }: Props) {
+  const [hover, setHover] = useState<Hover | null>(null)
+
+  const show = (group: string, name: string) => (e: PointerEvent<HTMLElement> | FocusEvent<HTMLElement>) => {
+    const box = e.currentTarget.closest('[data-group]')?.getBoundingClientRect()
+    const icon = e.currentTarget.getBoundingClientRect()
+    if (box) setHover({ group, name, x: icon.left + icon.width / 2 - box.left, top: icon.top - box.top, width: box.width })
+  }
+  const hide = () => setHover(null)
+
   return (
-    <div className="flex flex-wrap gap-x-6 gap-y-4">
-      {TECH_GROUPS.map((g) => (
-        <div key={g.id} role="group" aria-label={g.label}>
-          <p aria-hidden className="type-label">
-            <span className="text-dim">-={g.brackets[0]}</span> {g.label} <span className="text-dim">{g.brackets[1]}=-</span>
-          </p>
-          <ul className="mt-2 flex flex-wrap gap-1.5">
-            {g.items.map((t) => {
-              const pressed = active === t.id
-              return (
-                <li key={t.id}>
-                  <button
-                    type="button"
-                    aria-pressed={pressed}
-                    aria-label={t.name}
-                    onClick={() => onSelect(pressed ? null : t.id)}
-                    className={cn(
-                      'group relative grid size-10 place-items-center border outline-none transition-colors',
-                      pressed
-                        ? 'border-amber bg-glow text-amber'
-                        : 'border-ed/40 text-ed hover:border-amber hover:bg-glow hover:text-amber focus-visible:border-amber focus-visible:bg-glow focus-visible:text-amber',
-                    )}
+    <div className="flex flex-wrap gap-x-8 gap-y-4">
+      {TECH_GROUPS.map((g) => {
+        const h = hover?.group === g.id ? hover : null
+        const end = h ? h.width - ELBOW : 0
+        return (
+          <div key={g.id} data-group role="group" aria-label={g.label} className="relative min-w-60">
+            <div className="flex items-center justify-between gap-3" style={{ height: LABEL_H }}>
+              <p aria-hidden className="type-label whitespace-nowrap">
+                <span className="text-dim">-={g.brackets[0]}</span> {g.label} <span className="text-dim">{g.brackets[1]}=-</span>
+              </p>
+              <AnimatePresence>
+                {h && (
+                  <motion.span
+                    key={h.name}
+                    aria-hidden
+                    initial={{ opacity: 0, y: 3 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.15, delay: 0.08 }}
+                    className="type-caption whitespace-nowrap border border-amber bg-void px-2 py-px text-amber"
                   >
-                    <TechIcon tech={t} />
-                    {/* display:none rather than opacity-0: a transparent tooltip near the screen edge still widens the page. */}
-                    <span
-                      aria-hidden
-                      className="type-caption pointer-events-none absolute bottom-full left-1/2 z-10 mb-1.5 hidden -translate-x-1/2 whitespace-nowrap border border-ed/40 bg-void px-2 py-0.5 text-ink group-hover:block group-focus-visible:block"
+                    {h.name}
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {h && (
+              <div aria-hidden className="pointer-events-none absolute inset-0">
+                <span className="absolute w-px bg-amber" style={{ left: h.x, top: LINE_Y, height: h.top - LINE_Y }} />
+                <motion.span
+                  className="absolute h-px bg-amber"
+                  style={{ left: Math.min(h.x, end), top: LINE_Y, width: Math.abs(end - h.x), originX: h.x <= end ? 0 : 1 }}
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 0.12 }}
+                />
+                <span className="absolute w-px bg-amber" style={{ left: end, top: LABEL_H, height: LINE_Y - LABEL_H }} />
+              </div>
+            )}
+
+            <ul className="flex flex-wrap gap-1.5" style={{ marginTop: GAP }}>
+              {g.items.map((t) => {
+                const pressed = active === t.id
+                return (
+                  <li key={t.id}>
+                    <button
+                      type="button"
+                      aria-pressed={pressed}
+                      aria-label={t.name}
+                      onClick={() => onSelect(pressed ? null : t.id)}
+                      onPointerEnter={show(g.id, t.name)}
+                      onPointerLeave={hide}
+                      onFocus={show(g.id, t.name)}
+                      onBlur={hide}
+                      className={cn(
+                        'grid size-10 place-items-center border outline-none transition-colors',
+                        pressed
+                          ? 'border-amber bg-glow text-amber'
+                          : 'border-ed/40 text-ed hover:border-amber hover:bg-glow hover:text-amber focus-visible:border-amber focus-visible:bg-glow focus-visible:text-amber',
+                      )}
                     >
-                      {t.name}
-                    </span>
-                  </button>
-                </li>
-              )
-            })}
-          </ul>
-        </div>
-      ))}
+                      <TechIcon tech={t} />
+                    </button>
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
+        )
+      })}
     </div>
   )
 }

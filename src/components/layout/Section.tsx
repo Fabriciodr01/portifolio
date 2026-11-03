@@ -26,7 +26,8 @@ export function Section({ id, children, className }: Props) {
         className,
       )}
     >
-      <div className="mx-auto w-full max-w-6xl">
+      {/* min-w-0: as a flex item this would otherwise grow to fit wide content such as the project scroller. */}
+      <div className="mx-auto w-full min-w-0 max-w-6xl">
         <Reveal><Eyebrow>{transmission(i + 1)} / {title}</Eyebrow></Reveal>
         {children}
       </div>
