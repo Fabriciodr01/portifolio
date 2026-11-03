@@ -191,7 +191,7 @@ export default function ShipScan() {
       onPointerUp={onPointerUp}
       onPointerCancel={onPointerUp}
     >
-      {!model && <p className="grid h-full place-items-center text-xs uppercase tracking-hud text-dim">Scanning…</p>}
+      {!model && <p className="type-caption grid h-full place-items-center">Scanning…</p>}
       {model && (
         <Canvas
           className="[filter:drop-shadow(0_0_3px_rgb(255_113_0/0.65))]"
@@ -204,7 +204,7 @@ export default function ShipScan() {
           <Ship model={model} rig={rig} reduce={reduce} />
         </Canvas>
       )}
-      <p aria-hidden className="pointer-events-none absolute bottom-0 left-0 text-[10px] uppercase tracking-hud text-dim">
+      <p aria-hidden className="pointer-events-none absolute bottom-0 left-0 type-caption">
         <span className="hidden sm:inline">Drag to rotate</span><span className="sm:hidden">Swipe to rotate</span>
       </p>
     </div>

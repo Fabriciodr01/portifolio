@@ -30,7 +30,7 @@ export function SectionDivider({ index, next }: Props) {
 
   return (
     <div className="mt-12 snap:absolute snap:inset-x-10 snap:bottom-6 snap:mt-0">
-      <div className="mx-auto flex max-w-6xl items-center gap-3 text-[11px] uppercase tracking-hud">
+      <div className="mx-auto flex max-w-6xl items-center gap-3">
         <Cap />
         <motion.div {...draw('origin-right')}><div className="hud-ruler" /></motion.div>
 
@@ -39,7 +39,7 @@ export function SectionDivider({ index, next }: Props) {
           aria-label={next ? `End of ${transmission(index)}. Next section: ${next.title}` : `End of ${transmission(index)}. Back to top`}
           className="group clip-chamfer shrink-0 bg-ed/70 p-px transition-colors [--c:7px] hover:bg-ed"
         >
-          <span className="clip-chamfer flex items-center gap-2 bg-void px-3.5 py-1.5 text-ed transition-colors [--c:6.6px] group-hover:bg-ed group-hover:text-void">
+          <span className="type-eyebrow clip-chamfer flex items-center gap-2 bg-void px-3.5 py-1.5 transition-colors [--c:6.6px] group-hover:bg-ed group-hover:text-void">
             <span className="sm:hidden">END_{n}</span>
             <span className="hidden sm:inline">END OF {transmission(index)}</span>
             <span className="hidden text-dim group-hover:text-void/60 sm:inline">//</span>

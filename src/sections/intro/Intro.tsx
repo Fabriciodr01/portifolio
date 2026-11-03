@@ -1,10 +1,10 @@
-import { lazy, Suspense } from 'react'
+import { Fragment, lazy, Suspense } from 'react'
 import { Section } from '@/components/layout/Section'
 import { useBoot } from '@/components/boot/Boot'
 import { Reveal } from '@/components/motion/Reveal'
 import { ScrambleText } from '@/components/motion/ScrambleText'
 import { ShipSpecs } from '@/components/ship/ShipSpecs'
-import { BracketButton } from '@/components/ui/BracketButton'
+import { HudButton } from '@/components/ui/HudButton'
 import { Panel } from '@/components/ui/Panel'
 import { SHIP } from '@/data/ship'
 import { SITE } from '@/data/site'
@@ -27,20 +27,28 @@ export function Intro() {
             </h1>
           </Reveal>
           <Reveal delay={0.2}>
-            <p className="mt-6 text-lg uppercase tracking-wider text-amber">{SITE.role}</p>
-            <p className="mt-4 text-xs uppercase tracking-hud text-dim">
-              <span className="whitespace-nowrap">LOC: {SITE.location}</span> <span className="text-ed">//</span> <span className="whitespace-nowrap">{SITE.availability}</span>
+            <p className="type-lead mt-6">
+              {/* Each part stays whole and the separator travels with the second, so a wrap never strands the "·". */}
+              {SITE.role.split(' · ').map((part, i) => (
+                <Fragment key={part}>
+                  {i > 0 && ' '}
+                  <span className="whitespace-nowrap">{i > 0 && '· '}{part}</span>
+                </Fragment>
+              ))}
+            </p>
+            <p className="type-meta mt-3">
+              <span className="whitespace-nowrap"><span className="text-muted">LOC:</span> {SITE.location}</span> <span className="whitespace-nowrap"><span className="text-ed">//</span> {SITE.availability}</span>
             </p>
           </Reveal>
           <Reveal delay={0.3} className="mt-8 flex flex-wrap gap-3">
-            <BracketButton href="#about">ABOUT</BracketButton>
-            <BracketButton href="#projects">PROJECTS</BracketButton>
+            <HudButton href="#about">ABOUT</HudButton>
+            <HudButton href="#projects">PROJECTS</HudButton>
           </Reveal>
         </div>
         <Reveal delay={0.2}>
           <Panel label="SYS_01 // SHIP SCAN" meta={SHIP.name}>
-            <div className="relative aspect-[16/9] max-h-[27dvh] w-full">
-              <Suspense fallback={<p className="grid h-full place-items-center text-xs uppercase tracking-hud text-dim">Scanning…</p>}>
+            <div className="relative aspect-[16/9] max-h-[25dvh] w-full">
+              <Suspense fallback={<p className="type-caption grid h-full place-items-center">Scanning…</p>}>
                 <ShipScan />
               </Suspense>
             </div>
@@ -50,7 +58,7 @@ export function Intro() {
                 href={SHIP.credit.url}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-3 inline-block text-[10px] uppercase tracking-hud text-dim transition-colors hover:text-ed"
+                className="type-caption mt-3 inline-block underline decoration-dim underline-offset-4 transition-colors hover:text-ed"
               >
                 {SHIP.credit.label} ↗
               </a>

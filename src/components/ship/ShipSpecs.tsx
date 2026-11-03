@@ -42,7 +42,7 @@ export function ShipSpecs({ specs, delay = 0 }: Props) {
           <div key={k}><dt>{k}</dt><dd>{v}</dd></div>
         ))}
       </dl>
-      <div aria-hidden className="grid gap-x-6 gap-y-0.5 text-[11px] uppercase tracking-widest sm:grid-cols-2">
+      <div aria-hidden className="type-readout grid gap-x-6 gap-y-0.5 sm:grid-cols-2">
         {specs.map(([k, v]) => {
           const label = k.slice(0, Math.max(0, typed - offset))
           const value = v.slice(0, Math.max(0, typed - offset - k.length))
@@ -50,7 +50,7 @@ export function ShipSpecs({ specs, delay = 0 }: Props) {
           offset += k.length + v.length
           return (
             <div key={k} className={cn('flex min-h-[1.65em] items-baseline gap-2', k.length + v.length > WIDE_ROW && 'sm:col-span-2')}>
-              <span className="text-dim">{label}</span>
+              <span>{label}</span>
               {label.length === k.length && <span className="min-w-3 flex-1 border-b border-dotted border-dim/50" />}
               <span className="whitespace-nowrap text-amber">{value}</span>
               {cursorHere && <span className="inline-block h-[1em] w-[0.6em] translate-y-[0.15em] animate-blink bg-ed" />}

@@ -12,7 +12,11 @@
   --color-panel: #100c08;
   --color-ed: #ff7100;
   --color-amber: #ffb066;
+  /* dim (3.6:1 on void) is for decorative strokes and separators only; secondary text uses muted (6:1, WCAG AA). */
   --color-dim: #9a5a25;
+  --color-muted: #c4824a;
+  /* Opaque orange-tinted fill for hovered controls (a translucent fill would let the outline colour show through). */
+  --color-glow: color-mix(in oklab, var(--color-ed) 24%, var(--color-void));
   --color-ink: #e8c9a8;
   --color-bone: #ffe9d6;
 
@@ -26,6 +30,105 @@
 
   --animate-scan: scan 16s linear infinite;
   @keyframes scan { from { transform: translateY(-40vh); } to { transform: translateY(100vh); } }
+}
+
+/* ── Type scale ────────────────────────────────────────────────
+   Every piece of text uses one of these roles (size, case, spacing and default colour together), so the same kind of
+   text always looks the same. A plain text-* colour class next to one overrides its colour for states and variants.
+   The Intro h1 is the one deliberate exception. */
+@utility type-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(3rem, 8vw, 6rem);
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--color-bone);
+}
+@utility type-heading {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.875rem;
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: var(--color-bone);
+}
+@utility type-lead {
+  font-size: 1.5rem;
+  line-height: 1.3;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-amber);
+}
+@utility type-meta {
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+@utility type-action {
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: var(--tracking-hud);
+  text-transform: uppercase;
+  color: var(--color-ed);
+}
+@utility type-body {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--color-ink);
+}
+@utility type-sub {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-ed);
+}
+@utility type-nav {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: var(--tracking-hud);
+  text-transform: uppercase;
+  color: rgb(from var(--color-ink) r g b / 0.75);
+}
+@utility type-eyebrow {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: var(--tracking-hud);
+  text-transform: uppercase;
+  color: var(--color-ed);
+}
+@utility type-label {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: var(--tracking-hud);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+@utility type-caption {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+/* Decorative readouts (ship spec sheet): kept small on purpose, it is texture rather than content. */
+@utility type-readout {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* Two-corner variant (top-left and bottom-right) for smaller controls such as buttons. */
+@utility clip-notch {
+  clip-path: polygon(
+    var(--c, 10px) 0, 100% 0,
+    100% calc(100% - var(--c, 10px)), calc(100% - var(--c, 10px)) 100%,
+    0 100%, 0 var(--c, 10px)
+  );
 }
 
 /* Chamfered (cut-corner) panel shape. Set --c on the element to change the cut. */

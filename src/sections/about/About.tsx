@@ -6,10 +6,10 @@ import { SUMMARY } from '@/data/profile'
 export function About() {
   return (
     <Section id="about">
-      <Reveal delay={0.1}><h2 className="mt-6 font-display text-[clamp(3rem,8vw,6rem)] font-extrabold uppercase leading-none text-bone">About</h2></Reveal>
+      <Reveal delay={0.1}><h2 className="type-title mt-6">About</h2></Reveal>
       <Reveal delay={0.2} className="mt-8">
         <Panel label="DOSSIER // FABRICIO" meta="PHASE 2">
-          <div className="max-w-3xl space-y-3">
+          <div className="type-body max-w-3xl space-y-3">
             {SUMMARY.map((line) => <p key={line}>{line}</p>)}
           </div>
         </Panel>

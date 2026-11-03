@@ -61,8 +61,8 @@ function BootOverlay() {
       exit={{ clipPath: ['inset(0% 0% 0% 0%)', 'inset(49.8% 0% 49.8% 0%)', 'inset(50% 50% 50% 50%)'] }}
       transition={{ duration: 0.45, times: [0, 0.7, 1], ease: 'easeIn' }}
     >
-      <div className="w-full max-w-lg text-xs uppercase tracking-hud sm:text-sm">
-        <p className="flex items-center gap-3 text-ed">
+      <div className="w-full max-w-lg">
+        <p className="type-eyebrow flex items-center gap-3">
           <span className="size-1.5 animate-pulse rounded-full bg-ed shadow-[0_0_8px] shadow-ed" />
           FABRICIO.DEV // BOOT SEQUENCE
         </p>
@@ -76,7 +76,7 @@ function BootOverlay() {
           {LINES.map(([label, status], i) => (
             <motion.li
               key={label}
-              className="flex items-baseline gap-2 text-ink"
+              className="type-meta flex items-baseline gap-2"
               initial={{ opacity: 0, x: -6 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * STEP, duration: 0.15 }}
@@ -95,7 +95,7 @@ function BootOverlay() {
             </motion.li>
           ))}
         </ul>
-        <p className="mt-6 text-[10px] text-dim">Press any key to skip</p>
+        <p className="type-caption mt-6">Press any key to skip</p>
       </div>
     </motion.div>
   )

@@ -2,14 +2,14 @@ import { motion } from 'motion/react'
 import { SECTIONS, SITE } from '@/data/site'
 import { cn } from '@/lib/cn'
 
-const ext = 'text-ink/70 transition-colors hover:text-ed'
+const ext = 'type-nav transition-colors hover:text-ed'
 
 /** Fixed top bar: status on the left, section nav on the right. The active section gets an animated underline. */
 export function StatusBar({ active }: { active: string }) {
   return (
     <header className="fixed inset-x-0 top-0 z-50 bg-gradient-to-b from-void via-void/90 to-transparent">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-5 text-xs uppercase tracking-hud sm:px-10">
-        <a href="#intro" className="flex items-center gap-3 text-ed">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-5 type-nav sm:px-10">
+        <a href="#intro" className="type-nav flex items-center gap-3 text-ed">
           <span className="size-1.5 rounded-full motion-safe:animate-pulse bg-ed shadow-[0_0_8px] shadow-ed" />
           <span>
             <span className="hidden sm:inline">{SITE.handle} // </span>ONLINE
@@ -22,7 +22,7 @@ export function StatusBar({ active }: { active: string }) {
                 <a
                   href={`#${s.id}`}
                   aria-current={active === s.id ? 'true' : undefined}
-                  className={cn('relative whitespace-nowrap py-1 transition-colors', active === s.id ? 'text-amber' : 'text-ink/70 hover:text-ed')}
+                  className={cn('type-nav relative whitespace-nowrap py-1 transition-colors', active === s.id ? 'text-amber' : 'hover:text-ed')}
                 >
                   <span className="hidden text-dim sm:inline">/ </span>
                   {s.label}

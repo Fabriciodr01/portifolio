@@ -9,7 +9,7 @@ export function Panel({ label, meta, children, className }: Props) {
     <div className={cn('clip-chamfer bg-ed p-px [--c:16px]', className)}>
       <div className="clip-chamfer h-full bg-panel [--c:15.6px]">
         {(label || meta) && (
-          <div className="flex justify-between gap-4 border-b border-ed/40 px-5 py-2 text-xs uppercase tracking-hud text-dim">
+          <div className="flex justify-between gap-4 border-b border-ed/40 px-5 py-2 type-label">
             <span className="truncate">{label}</span>
             <span className="hidden whitespace-nowrap sm:inline">{meta}</span>
           </div>
