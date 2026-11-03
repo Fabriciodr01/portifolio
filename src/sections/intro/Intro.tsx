@@ -1,18 +1,17 @@
 import { Section } from '@/components/layout/Section'
 import { Reveal } from '@/components/motion/Reveal'
 import { BracketButton } from '@/components/ui/BracketButton'
-import { Eyebrow } from '@/components/ui/Eyebrow'
 import { Panel } from '@/components/ui/Panel'
 
 /** PHASE 1 placeholder: title, buttons and the framed panel that will hold the 3D ship. */
 export function Intro() {
   return (
-    <Section id="intro" index={1}>
-      <div className="grid items-center gap-10 lg:grid-cols-[1.2fr_1fr]">
+    <Section id="intro">
+      <div className="mt-6 grid items-center gap-10 lg:grid-cols-[1.2fr_1fr]">
         <div>
-          <Reveal><Eyebrow>Portfolio / 001</Eyebrow></Reveal>
           <Reveal delay={0.1}>
-            <h1 className="mt-6 font-display text-[clamp(4rem,13vh,9.5rem)] font-extrabold uppercase leading-[0.85] text-bone">
+            {/* 13vh on desktop, capped by width so "Dias da Rosa" never overflows a phone or the grid column. */}
+            <h1 className="font-display text-[min(13vh,15vw)] font-extrabold uppercase leading-[0.85] text-bone lg:text-[min(13vh,11vw,9.5rem)]">
               Fabricio<br /><span className="text-ed">Dias da Rosa</span>
             </h1>
           </Reveal>

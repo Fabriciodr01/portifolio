@@ -1,4 +1,4 @@
-/** Phase 3 will extend this (description, stack, tags, links, media). */
+/** Phase 3 will extend this (description, stack, tags, links, media). TODO: real subtitles/descriptions. */
 export type Project = { id: string; title: string; subtitle: string }
 
 export const PROJECTS: Project[] = [

@@ -1,14 +1,12 @@
 import { Section } from '@/components/layout/Section'
 import { Reveal } from '@/components/motion/Reveal'
-import { Eyebrow } from '@/components/ui/Eyebrow'
 import { Panel } from '@/components/ui/Panel'
 import { PROJECTS } from '@/data/projects'
 
 /** PHASE 3 placeholder: project cards (filters, tilt, expandable details) go here. */
 export function Projects() {
   return (
-    <Section id="projects" index={3} last>
-      <Reveal><Eyebrow>02 / Work</Eyebrow></Reveal>
+    <Section id="projects">
       <Reveal delay={0.1}><h2 className="mt-6 font-display text-[clamp(3rem,8vw,6rem)] font-extrabold uppercase leading-none text-bone">Projects</h2></Reveal>
       <div className="mt-8 grid gap-5 md:grid-cols-3">
         {PROJECTS.map((p, i) => (

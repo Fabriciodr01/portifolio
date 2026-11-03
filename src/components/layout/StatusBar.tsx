@@ -22,9 +22,9 @@ export function StatusBar({ active }: { active: string }) {
                 <a
                   href={`#${s.id}`}
                   aria-current={active === s.id ? 'true' : undefined}
-                  className={cn('relative py-1 transition-colors', active === s.id ? 'text-amber' : 'text-ink/70 hover:text-ed')}
+                  className={cn('relative whitespace-nowrap py-1 transition-colors', active === s.id ? 'text-amber' : 'text-ink/70 hover:text-ed')}
                 >
-                  <span className="text-dim">/ </span>
+                  <span className="hidden text-dim sm:inline">/ </span>
                   {s.label}
                   {active === s.id && <motion.span layoutId="nav-underline" className="absolute inset-x-0 -bottom-0.5 h-px bg-ed" />}
                 </a>
