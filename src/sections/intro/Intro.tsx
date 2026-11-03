@@ -42,7 +42,7 @@ export function Intro() {
         </div>
         {/* Height-capped so the portrait never pushes the section past one desktop screen. */}
         <Reveal delay={0.2} className="mx-auto w-full max-w-xs lg:max-w-[calc(56dvh*0.8)]">
-          <PhotoPanel src={`${import.meta.env.BASE_URL}images/profile.jpg`} alt={`Portrait of ${SITE.name}`} label="ID_01 // PERSONNEL" meta="VERIFIED" />
+          <PhotoPanel src={`${import.meta.env.BASE_URL}images/profile.webp`} alt={`${SITE.name}, portrayed as an Elite Dangerous commander`} label="ID_01 // PERSONNEL" meta="CMDR" />
         </Reveal>
       </div>
     </Section>
