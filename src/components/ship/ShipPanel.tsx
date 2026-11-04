@@ -24,7 +24,7 @@ export function ShipPanel() {
           href={SHIP.credit.url}
           target="_blank"
           rel="noreferrer"
-          className="type-caption mt-3 inline-block underline decoration-dim underline-offset-4 transition-colors hover:text-ed"
+          className="hud-link type-caption mt-3 inline-block"
         >
           {SHIP.credit.label} ↗
         </a>

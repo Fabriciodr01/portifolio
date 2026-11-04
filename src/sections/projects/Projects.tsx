@@ -9,7 +9,6 @@ import { TECH_BY_ID } from '@/data/tech'
 import { cn } from '@/lib/cn'
 import { ProjectDialog } from './ProjectDialog'
 import { TechFilter } from './TechFilter'
-import { HoverCard } from './HoverCard'
 
 // Public projects are numbered on their own; the work card is labelled separately.
 const NUMBER = new Map(PROJECTS.filter((p) => p.kind === 'project').map((p, i) => [p.id, String(i + 1).padStart(2, '0')]))
@@ -57,7 +56,7 @@ export function Projects() {
         {active && (
           <>
             <span className="type-eyebrow">Filter // {active.name}</span>
-            <button type="button" onClick={() => setFilter(null)} className="type-caption underline decoration-dim underline-offset-4 transition-colors hover:text-ed">
+            <button type="button" onClick={() => setFilter(null)} className="hud-link type-caption">
               Clear ×
             </button>
           </>
@@ -70,7 +69,7 @@ export function Projects() {
               aria-label={label}
               disabled={!enabled}
               onClick={() => step(dir)}
-              className="type-caption grid size-8 place-items-center border border-ed/40 text-ed transition-colors hover:border-amber hover:bg-glow hover:text-amber disabled:cursor-default disabled:border-dim/30 disabled:bg-transparent disabled:text-dim"
+              className="hud-control type-caption text-hud grid size-8 place-items-center"
             >
               {glyph}
             </button>
@@ -80,14 +79,13 @@ export function Projects() {
 
       {/* Cards are sized so the next one is always cut at the edge (about 3.4 visible on desktop), and the
           edge fades while more remain: both tell the visitor the row scrolls sideways. `relative` makes it the
-          containing block, so absolutely positioned descendants (sr-only labels) are clipped instead of widening the page.
-          The small padding leaves room for a hovered card to grow without being cut by the scroll clip. */}
+          containing block, so absolutely positioned descendants (sr-only labels) are clipped instead of widening the page. */}
       <motion.ul
         ref={track}
         layout
         onScroll={measure}
         className={cn(
-          'relative mt-1 flex snap-x snap-mandatory scroll-px-1.5 gap-5 overflow-x-auto px-1.5 py-3 [scrollbar-color:var(--color-ed)_transparent] [scrollbar-width:thin]',
+          'relative mt-3 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-3 [scrollbar-color:var(--color-ed)_transparent] [scrollbar-width:thin]',
           edges.next && '[mask-image:linear-gradient(to_right,#000_85%,transparent)]',
         )}
       >
@@ -102,47 +100,46 @@ export function Projects() {
               exit={{ opacity: 0, scale: 0.96 }}
               transition={{ duration: 0.25 }}
             >
-              <HoverCard>
-                <Panel
-                  label={p.kind === 'work' ? 'WORK // PROPRIETARY' : cardLabel(p)}
-                  className="h-full transition-colors duration-300 group-hover/card:bg-amber group-focus-within/card:bg-amber"
-                >
-                  <h3 className="type-heading">{p.title}</h3>
-                  <p className="type-sub mt-1">{p.subtitle}</p>
-                  {p.stack.length > 0 && (
-                    <ul aria-label="Built with" className="mt-4 flex flex-wrap gap-2 text-muted">
-                      {p.stack.map((id) => {
-                        const t = TECH_BY_ID.get(id)
-                        return t && (
-                          <li key={id} title={t.name} className={id === filter ? 'text-amber' : undefined}>
-                            <TechIcon tech={t} className="size-4" />
-                            <span className="sr-only">{t.name}</span>
-                          </li>
-                        )
-                      })}
-                    </ul>
+              <Panel
+                label={p.kind === 'work' ? 'WORK // PROPRIETARY' : cardLabel(p)}
+                className="h-full"
+                interactive
+              >
+                <h3 className="type-heading">{p.title}</h3>
+                <p className="type-sub mt-1">{p.subtitle}</p>
+                {p.stack.length > 0 && (
+                  <ul aria-label="Built with" className="mt-4 flex flex-wrap gap-2 text-muted">
+                    {p.stack.map((id) => {
+                      const t = TECH_BY_ID.get(id)
+                      return t && (
+                        <li key={id} title={t.name} className={id === filter ? 'text-amber' : undefined}>
+                          <TechIcon tech={t} className="size-4" />
+                          <span className="sr-only">{t.name}</span>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                )}
+                <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
+                  <button
+                    type="button"
+                    aria-haspopup="dialog"
+                    onClick={() => setOpen(p)}
+                    className="hud-control type-caption text-hud px-2 py-0.5"
+                  >
+                    Details +
+                  </button>
+                  {p.kind === 'work' ? (
+                    <a href={p.href} className="hud-link type-caption">
+                      Private code ↓
+                    </a>
+                  ) : (
+                    <a href={p.href} target="_blank" rel="noreferrer" className="hud-link type-caption">
+                      Repository ↗
+                    </a>
                   )}
-                  <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
-                    <button
-                      type="button"
-                      aria-haspopup="dialog"
-                      onClick={() => setOpen(p)}
-                      className="type-caption border border-ed/50 px-2 py-0.5 text-ed transition-colors hover:border-amber hover:bg-glow hover:text-amber"
-                    >
-                      Details +
-                    </button>
-                    {p.kind === 'work' ? (
-                      <a href={p.href} className="type-caption underline decoration-dim underline-offset-4 transition-colors hover:text-ed">
-                        Private code ↓
-                      </a>
-                    ) : (
-                      <a href={p.href} target="_blank" rel="noreferrer" className="type-caption underline decoration-dim underline-offset-4 transition-colors hover:text-ed">
-                        Repository ↗
-                      </a>
-                    )}
-                  </div>
-                </Panel>
-              </HoverCard>
+                </div>
+              </Panel>
             </motion.li>
           ))}
         </AnimatePresence>

@@ -5,7 +5,6 @@ import { Reveal } from '@/components/motion/Reveal'
 import { Panel } from '@/components/ui/Panel'
 import { EDUCATION, EXPERIENCE } from '@/data/profile'
 import { tabId, useTabKeys } from '@/hooks/useTabKeys'
-import { cn } from '@/lib/cn'
 
 const GROUP = 'job'
 const IDS = EXPERIENCE.map((j) => j.id)
@@ -35,10 +34,10 @@ export function Experience() {
                     aria-controls={`${GROUP}-panel`}
                     tabIndex={selected ? 0 : -1}
                     onClick={() => setActive(j.id)}
-                    className={cn('group clip-notch p-px text-left outline-none transition-colors [--c:8px]', selected ? 'bg-ed' : 'bg-ed/30 hover:bg-ed/70 focus-visible:bg-amber')}
+                    className="hud-frame clip-notch p-px text-left outline-none [--c:8px]"
                   >
-                    <span className={cn('clip-notch block px-4 py-2.5 transition-colors [--c:7.6px]', selected ? 'bg-glow' : 'bg-void group-hover:bg-panel')}>
-                      <span className={cn('type-meta block', selected && 'text-amber')}>{j.role}</span>
+                    <span className="hud-frame-body clip-notch block bg-void px-4 py-2.5 [--c:7.6px]">
+                      <span className="type-meta text-hud-ink block">{j.role}</span>
                       <span className="type-caption block">{j.company} · {j.period}</span>
                     </span>
                   </button>

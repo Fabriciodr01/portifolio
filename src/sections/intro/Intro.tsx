@@ -55,7 +55,7 @@ export function Intro() {
                   key={c.label}
                   href={c.href}
                   {...(c.external ? { target: '_blank', rel: 'noreferrer' } : {})}
-                  className="type-sub underline decoration-dim underline-offset-4 transition-colors hover:text-amber hover:decoration-amber"
+                  className="hud-link type-sub"
                 >
                   {c.label}
                 </a>

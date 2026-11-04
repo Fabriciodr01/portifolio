@@ -92,12 +92,7 @@ export function TechFilter({ active, onSelect }: Props) {
                       onPointerLeave={hide}
                       onFocus={show(g.id, t.name)}
                       onBlur={hide}
-                      className={cn(
-                        'grid size-10 place-items-center border outline-none transition-colors',
-                        pressed
-                          ? 'border-amber bg-glow text-amber'
-                          : 'border-ed/40 text-ed hover:border-amber hover:bg-glow hover:text-amber focus-visible:border-amber focus-visible:bg-glow focus-visible:text-amber',
-                      )}
+                      className="hud-control grid size-10 place-items-center"
                     >
                       <TechIcon tech={t} />
                     </button>

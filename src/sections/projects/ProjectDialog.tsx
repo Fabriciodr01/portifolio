@@ -44,7 +44,7 @@ export function ProjectDialog({ project, label, onClose }: Props) {
               <button
                 type="button"
                 onClick={onClose}
-                className="type-caption shrink-0 border border-ed/40 px-2 py-1 transition-colors hover:border-amber hover:text-amber"
+                className="hud-control type-caption text-hud shrink-0 px-2 py-1"
               >
                 Close ×
               </button>
@@ -76,7 +76,7 @@ export function ProjectDialog({ project, label, onClose }: Props) {
 
             <div className="mt-6">
               {work ? (
-                <a href={project.href} onClick={onClose} className="type-caption underline decoration-dim underline-offset-4 transition-colors hover:text-ed">
+                <a href={project.href} onClick={onClose} className="hud-link type-caption">
                   Private code · see Experience ↓
                 </a>
               ) : (

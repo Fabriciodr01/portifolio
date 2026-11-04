@@ -141,6 +141,108 @@
   );
 }
 
+/* ── Interaction states ────────────────────────────────────────
+   One pattern for every interactive element, so buttons, tabs, toggles and cards all answer the same way.
+   Rest: orange outline at 60%. Hover / keyboard focus: outline and label turn amber while a glow fill sweeps up
+   from the bottom. Selected (aria-pressed / aria-selected): the hover look held, plus a 2px amber bar on the
+   bottom edge. Reduced motion fades the fill instead of sweeping it.
+   State is passed down as custom properties (--hud-fill, --hud-ink) so a clip-path frame and the body inside it
+   stay in sync; every control resets them so it never inherits a parent card's hover. */
+@utility hud-control {
+  --hud-fill: 0;
+  --hud-ink: var(--color-ed);
+  position: relative;
+  isolation: isolate;
+  border: 1px solid rgb(255 113 0 / 0.6);
+  color: var(--hud-ink);
+  transition: border-color 200ms ease-out, color 200ms ease-out;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: var(--color-glow);
+    transform-origin: bottom;
+    scale: 1 var(--hud-fill);
+    transition: scale 250ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  &:hover, &:focus-visible, &[aria-pressed="true"], &[aria-selected="true"] {
+    --hud-fill: 1;
+    --hud-ink: var(--color-amber);
+    border-color: var(--color-amber);
+  }
+  &[aria-pressed="true"]::after, &[aria-selected="true"]::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0;
+    height: 2px;
+    background: var(--color-amber);
+  }
+  &:disabled {
+    --hud-fill: 0;
+    --hud-ink: var(--color-dim);
+    border-color: rgb(154 90 37 / 0.3);
+    cursor: default;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    &::before { scale: none; opacity: var(--hud-fill); transition: opacity 200ms ease-out; }
+  }
+}
+
+/* Outline of a clip-path control: its background shows around the inset hud-frame-body as a 1px border
+   (a CSS border would be cut off by the clip-path). Same states as hud-control. */
+@utility hud-frame {
+  --hud-fill: 0;
+  --hud-ink: initial;
+  position: relative;
+  background-color: rgb(255 113 0 / 0.6);
+  transition: background-color 200ms ease-out;
+  &:hover, &:focus-visible, &:has(:focus-visible), &[aria-pressed="true"], &[aria-selected="true"] {
+    --hud-fill: 1;
+    --hud-ink: var(--color-amber);
+    background-color: var(--color-amber);
+  }
+  &[aria-pressed="true"]::after, &[aria-selected="true"]::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0;
+    height: 2px;
+    background: var(--color-amber);
+  }
+}
+@utility hud-frame-body {
+  position: relative;
+  isolation: isolate;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: var(--color-glow);
+    transform-origin: bottom;
+    scale: 1 var(--hud-fill, 0);
+    transition: scale 250ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    &::before { scale: none; opacity: var(--hud-fill, 0); transition: opacity 200ms ease-out; }
+  }
+}
+/* Label colour that follows the enclosing hud-frame's state: orange (or ink) at rest, amber when active. */
+/* Also pair it with a type-* class on a hud-control: it is emitted after the type roles, so the state colour wins. */
+@utility text-hud { color: var(--hud-ink, var(--color-ed)); transition: color 200ms ease-out; }
+@utility text-hud-ink { color: var(--hud-ink, var(--color-ink)); transition: color 200ms ease-out; }
+
+/* Inline text links: dim underline at rest, amber text and underline on hover / focus. */
+@utility hud-link {
+  text-decoration-line: underline;
+  text-decoration-color: var(--color-dim);
+  text-underline-offset: 4px;
+  transition: color 200ms ease-out, text-decoration-color 200ms ease-out;
+  &:hover, &:focus-visible { color: var(--color-amber); text-decoration-color: var(--color-amber); }
+}
+
 @layer base {
   html { background: var(--color-void); color-scheme: dark; scroll-behavior: smooth; }
   body {

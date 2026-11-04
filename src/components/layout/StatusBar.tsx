@@ -2,7 +2,7 @@ import { motion } from 'motion/react'
 import { SECTIONS, SITE } from '@/data/site'
 import { cn } from '@/lib/cn'
 
-const ext = 'type-nav transition-colors hover:text-ed'
+const ext = 'type-nav transition-colors hover:text-amber'
 
 /** Fixed top bar: status on the left, section nav on the right. The active section gets an animated underline. */
 export function StatusBar({ active }: { active: string }) {
@@ -22,7 +22,7 @@ export function StatusBar({ active }: { active: string }) {
                 <a
                   href={`#${s.id}`}
                   aria-current={active === s.id ? 'true' : undefined}
-                  className={cn('type-nav relative whitespace-nowrap py-1 transition-colors', active === s.id ? 'text-amber' : 'hover:text-ed')}
+                  className={cn('type-nav relative whitespace-nowrap py-1 transition-colors', active === s.id ? 'text-amber' : 'hover:text-amber')}
                 >
                   <span className="hidden text-dim sm:inline">/ </span>
                   {s.label}

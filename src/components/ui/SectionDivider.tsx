@@ -37,12 +37,12 @@ export function SectionDivider({ index, next }: Props) {
         <a
           href={href}
           aria-label={next ? `End of ${transmission(index)}. Next section: ${next.title}` : `End of ${transmission(index)}. Back to top`}
-          className="group clip-chamfer shrink-0 bg-ed/70 p-px transition-colors [--c:7px] hover:bg-ed"
+          className="group hud-frame clip-chamfer shrink-0 p-px outline-none [--c:7px]"
         >
-          <span className="type-eyebrow clip-chamfer flex items-center gap-2 bg-void px-3.5 py-1.5 transition-colors [--c:6.6px] group-hover:bg-ed group-hover:text-void">
+          <span className="hud-frame-body type-eyebrow text-hud clip-chamfer flex items-center gap-2 bg-void px-3.5 py-1.5 [--c:6.6px]">
             <span className="sm:hidden">END_{n}</span>
             <span className="hidden sm:inline">END OF {transmission(index)}</span>
-            <span className="hidden text-dim group-hover:text-void/60 sm:inline">//</span>
+            <span className="hidden text-dim sm:inline">//</span>
             <span className="hidden sm:inline">{next ? `NEXT: ${next.title}` : 'BACK TO TOP'}</span>
             <span
               aria-hidden
