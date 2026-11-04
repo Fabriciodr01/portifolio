@@ -1,5 +1,5 @@
-import { AnimatePresence, motion } from 'motion/react'
-import { useState, type FocusEvent, type PointerEvent } from 'react'
+import { motion } from 'motion/react'
+import { useEffect, useRef, useState, type FocusEvent, type PointerEvent } from 'react'
 import { TechIcon } from '@/components/ui/TechIcon'
 import { TECH_GROUPS } from '@/data/tech'
 import { cn } from '@/lib/cn'
@@ -13,49 +13,56 @@ const GAP = 12
 const LINE_Y = LABEL_H + GAP / 2
 // The leader line turns up into the readout box this far from the group's right edge.
 const ELBOW = 14
+// Grace period before hiding, so sweeping across neighbouring icons hands over without the readout blinking.
+const HIDE_DELAY = 90
 
 /**
  * Grouped icon toggles. Pressing one filters the project cards; pressing it again clears the filter.
  * Hover or focus draws a leader line from the icon, through the gap above the row, to a readout box at the right end
- * of the group's label row, so the name never covers a neighbouring icon.
+ * of the group's label row, so the name never covers a neighbouring icon. The readout is absolutely positioned and
+ * there is one per group whose text swaps in place, so hovering never changes the layout of the rows.
  */
 export function TechFilter({ active, onSelect }: Props) {
   const [hover, setHover] = useState<Hover | null>(null)
+  const hideTimer = useRef(0)
+  // Last name shown per group, so a readout fading out keeps its text instead of going blank mid-fade.
+  const lastName = useRef<Record<string, string>>({})
+  useEffect(() => () => clearTimeout(hideTimer.current), [])
 
   const show = (group: string, name: string) => (e: PointerEvent<HTMLElement> | FocusEvent<HTMLElement>) => {
+    clearTimeout(hideTimer.current)
     const box = e.currentTarget.closest('[data-group]')?.getBoundingClientRect()
     const icon = e.currentTarget.getBoundingClientRect()
     if (box) setHover({ group, name, x: icon.left + icon.width / 2 - box.left, top: icon.top - box.top, width: box.width })
   }
-  const hide = () => setHover(null)
+  const hide = () => {
+    clearTimeout(hideTimer.current)
+    hideTimer.current = window.setTimeout(() => setHover(null), HIDE_DELAY)
+  }
 
   return (
     <div className="flex flex-wrap gap-x-8 gap-y-4">
       {TECH_GROUPS.map((g) => {
         const h = hover?.group === g.id ? hover : null
         const end = h ? h.width - ELBOW : 0
+        if (h) lastName.current[g.id] = h.name
         return (
           <div key={g.id} data-group role="group" aria-label={g.label} className="relative min-w-60">
-            <div className="flex items-center justify-between gap-3" style={{ height: LABEL_H }}>
+            <div className="flex items-center" style={{ height: LABEL_H }}>
               <p aria-hidden className="type-label whitespace-nowrap">
                 <span className="text-dim">-={g.brackets[0]}</span> {g.label} <span className="text-dim">{g.brackets[1]}=-</span>
               </p>
-              <AnimatePresence>
-                {h && (
-                  <motion.span
-                    key={h.name}
-                    aria-hidden
-                    initial={{ opacity: 0, y: 3 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.15, delay: 0.08 }}
-                    className="type-caption whitespace-nowrap border border-amber bg-void px-2 py-px text-amber"
-                  >
-                    {h.name}
-                  </motion.span>
-                )}
-              </AnimatePresence>
             </div>
+            <span
+              aria-hidden
+              className={cn(
+                'type-caption pointer-events-none absolute right-0 top-0 flex items-center whitespace-nowrap border border-amber bg-void px-2 text-amber transition-[opacity,translate] duration-150',
+                h ? 'translate-y-0 opacity-100' : 'translate-y-0.5 opacity-0',
+              )}
+              style={{ height: LABEL_H }}
+            >
+              {lastName.current[g.id]}
+            </span>
 
             {h && (
               <div aria-hidden className="pointer-events-none absolute inset-0">
