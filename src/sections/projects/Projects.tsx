@@ -9,7 +9,7 @@ import { TECH_BY_ID } from '@/data/tech'
 import { cn } from '@/lib/cn'
 import { ProjectDialog } from './ProjectDialog'
 import { TechFilter } from './TechFilter'
-import { TiltCard } from './TiltCard'
+import { HoverCard } from './HoverCard'
 
 // Public projects are numbered on their own; the work card is labelled separately.
 const NUMBER = new Map(PROJECTS.filter((p) => p.kind === 'project').map((p, i) => [p.id, String(i + 1).padStart(2, '0')]))
@@ -80,13 +80,14 @@ export function Projects() {
 
       {/* Cards are sized so the next one is always cut at the edge (about 3.4 visible on desktop), and the
           edge fades while more remain: both tell the visitor the row scrolls sideways. `relative` makes it the
-          containing block, so absolutely positioned descendants (sr-only labels) are clipped instead of widening the page. */}
+          containing block, so absolutely positioned descendants (sr-only labels) are clipped instead of widening the page.
+          The small padding leaves room for a hovered card to grow without being cut by the scroll clip. */}
       <motion.ul
         ref={track}
         layout
         onScroll={measure}
         className={cn(
-          'relative mt-3 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-3 [scrollbar-color:var(--color-ed)_transparent] [scrollbar-width:thin]',
+          'relative mt-1 flex snap-x snap-mandatory scroll-px-1.5 gap-5 overflow-x-auto px-1.5 py-3 [scrollbar-color:var(--color-ed)_transparent] [scrollbar-width:thin]',
           edges.next && '[mask-image:linear-gradient(to_right,#000_85%,transparent)]',
         )}
       >
@@ -101,8 +102,11 @@ export function Projects() {
               exit={{ opacity: 0, scale: 0.96 }}
               transition={{ duration: 0.25 }}
             >
-              <TiltCard>
-                <Panel label={p.kind === 'work' ? 'WORK // PROPRIETARY' : cardLabel(p)} className="h-full">
+              <HoverCard>
+                <Panel
+                  label={p.kind === 'work' ? 'WORK // PROPRIETARY' : cardLabel(p)}
+                  className="h-full transition-colors duration-300 group-hover/card:bg-amber group-focus-within/card:bg-amber"
+                >
                   <h3 className="type-heading">{p.title}</h3>
                   <p className="type-sub mt-1">{p.subtitle}</p>
                   {p.stack.length > 0 && (
@@ -138,7 +142,7 @@ export function Projects() {
                     )}
                   </div>
                 </Panel>
-              </TiltCard>
+              </HoverCard>
             </motion.li>
           ))}
         </AnimatePresence>
